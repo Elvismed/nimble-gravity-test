@@ -5,9 +5,10 @@ import type { Job } from '../interfaces/job'
 type JobCardProps = {
   job: Job
   onSubmit?: (args: { job: Job; repoUrl: string }) => void | Promise<void>
+  disabled?: boolean
 }
 
-export default function JobCard({ job, onSubmit }: JobCardProps) {
+export default function JobCard({ job, onSubmit, disabled = false }: JobCardProps) {
   const [repoUrl, setRepoUrl] = useState('')
 
   const handleSubmit = async () => {
@@ -28,11 +29,12 @@ export default function JobCard({ job, onSubmit }: JobCardProps) {
           placeholder="https://github.com/usuario/repo"
           value={repoUrl}
           onChange={(e) => setRepoUrl(e.target.value)}
+          disabled={disabled}
         />
       </CardContent>
 
       <CardActions sx={{ justifyContent: 'flex-end', px: 2, pb: 2 }}>
-        <Button variant="contained" onClick={handleSubmit}>
+        <Button variant="contained" onClick={handleSubmit} disabled={disabled}>
           Submit
         </Button>
       </CardActions>
